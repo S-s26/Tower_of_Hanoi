@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi — AI Solver</title>
+    <meta name="description" content="A modified Tower of Hanoi puzzle with colour constraints — disks must achieve a specific colour arrangement on the destination peg alongside standard size ordering.  Features A* and BFS AI solvers using state-space search.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'game/css/game.css' %}">
+</head>
+<body>
+    <div class="app-container">
+        <header id="app-header">
+            <h1>🗼 Tower of <span class="gradient-text">Hanoi</span></h1>
+            <p class="subtitle">State-Space Search &bull; Color Constraints &bull; A* / BFS Solver</p>
+        </header>
+
+        <main class="main-layout">
+            <!-- ─── Game Board ─────────────────────────── -->
+            <section class="game-section">
+                <div id="game-board">
+                    <div class="peg-area" data-peg="0">
+                        <div class="peg-rod"></div>
+                        <div class="peg-base"></div>
+                        <span class="peg-label">A</span>
+                    </div>
+                    <div class="peg-area" data-peg="1">
+                        <div class="peg-rod"></div>
+                        <div class="peg-base"></div>
+                        <span class="peg-label">B</span>
+                    </div>
+                    <div class="peg-area" data-peg="2">
+                        <div class="peg-rod"></div>
+                        <div class="peg-base"></div>
+                        <span class="peg-label">C</span>
+                    </div>
+                </div>
+
+                <div id="status-bar">
+                    <span id="status-icon">💡</span>
+                    <span id="status-text">Click a peg to select its top disk, then click another peg to place it.</span>
+                </div>
+            </section>
+
+            <!-- ─── Control Panel ──────────────────────── -->
+            <aside class="control-panel" id="control-panel">
+                <div class="panel-section">
+                    <h3>⚙️ Configuration</h3>
+                    <label for="disk-count">
+                        Disks
+                        <select id="disk-count">
+                            <option value="3">3 Disks</option>
+                            <option value="4" selected>4 Disks</option>
+                            <option value="5">5 Disks</option>
+                            <option value="6">6 Disks</option>
+                            <option value="7">7 Disks</option>
+                        </select>
+                    </label>
+                    <label for="algorithm-select">
+                        Search Algorithm
+                        <select id="algorithm-select">
+                            <option value="astar">A* Search</option>
+                            <option value="bfs">BFS (Breadth-First)</option>
+                        </select>
+                    </label>
+                    <label for="speed-slider">
+                        Animation Speed
+                        <input type="range" id="speed-slider" min="100" max="1000" value="600" step="50">
+                    </label>
+                </div>
+
+                <div class="panel-section">
+                    <h3>🎮 Actions</h3>
+                    <button id="btn-new-game">🔄 New Game</button>
+                    <button id="btn-scramble">🎲 Scramble</button>
+                    <button id="btn-solve">🤖 Solve with AI</button>
+                    <button id="btn-reset">↩️ Reset</button>
+                </div>
+
+                <div class="panel-section stats-section">
+                    <h3>📊 Statistics</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">Moves</span>
+                        <span class="stat-value" id="move-counter">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Optimal</span>
+                        <span class="stat-value" id="optimal-counter">—</span>
+                    </div>
+                </div>
+
+                <div class="panel-section target-section">
+                    <h3>🎯 Target: Peg C</h3>
+                    <p class="help-text">
+                        Stack all disks on Peg C in size order <strong>and</strong>
+                        match this colour arrangement (top → bottom).
+                        <em>Click a colour chip to change it.</em>
+                    </p>
+                    <div id="target-display"></div>
+                    <p class="help-text constraint-note">
+                        ⚠ The solver will report if a target is infeasible
+                        with the current disk colours.
+                    </p>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="{% static 'game/js/game.js' %}"></script>
+</body>
+</html>
