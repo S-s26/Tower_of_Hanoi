@@ -15,8 +15,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-        print("ok")
-        print("added new thing")
+        tem = "bar bar kam krane wale ki maka bhosra bc"
+        print(tem) 
     execute_from_command_line(sys.argv)
 
 
